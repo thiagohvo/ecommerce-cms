@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom"
+import { ToastContainer } from "react-toastify"
 import { CategoryLayout } from "@/cases/categories/components/category-layout"
 import { CategoryForm } from "./cases/categories/components/category-form"
 
@@ -11,6 +12,8 @@ function App() {
           <Route path="/new" element={<CategoryForm />} />
         </Routes>
       </main>
+<ToastContainer />
+
     </div>
   )
 }
