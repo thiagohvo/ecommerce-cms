@@ -1,16 +1,17 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import type { ProductsDTO } from "../dtos/products.dto";
+
 import { ProductsService } from "../services/products-service";
+import type { ProductDTO } from "../dtos/products.dto";
 
 export function useProducts() {
-  return useQuery<ProductsDTO[]>({
-    queryKey: ["products"],
+  return useQuery<ProductDTO[]>({
+    queryKey: ["product"],
     queryFn: ProductsService.list,
   });
 }
 
 export function useProduct(id: string) {
-  return useQuery<ProductsDTO>({
+  return useQuery<ProductDTO>({
     queryKey: ["product", id],
     queryFn: () => ProductsService.getById(id),
     enabled: !!id,
@@ -18,14 +19,14 @@ export function useProduct(id: string) {
 }
 
 export function useCreateProducts() {
-  return useMutation<ProductsDTO, Error, Omit<ProductsDTO, "id">>({
-    mutationFn: (product: Omit<ProductsDTO, "id">) =>
+  return useMutation<ProductDTO, Error, Omit<ProductDTO, "id">>({
+    mutationFn: (product: Omit<ProductDTO, "id">) =>
       ProductsService.create(product),
   });
 }
 
 export function useUpdateProducts() {
-  return useMutation<ProductsDTO, Error, { id: string; product: ProductsDTO }>({
+  return useMutation<ProductDTO, Error, { id: string; product: ProductDTO }>({
     mutationFn: ({ id, product }) => ProductsService.update(id, product),
   });
 }
